@@ -149,6 +149,19 @@ and open the template in the editor.
         $('.back').click(function() {
             window.location ="BLINKING_3.html";
         });
+        
+        $(document).keyup(function(e){
+            if (event.which == "27"){
+                window.location = "../../GSOC/template.html";
+            }
+            else if(event.which == "37"){
+                 window.location = "BLINKING_1.html";
+            }
+            else if (event.which == "39"){
+                window.location = "BLINKING_3.html";
+            }
+        });
+        
     </script>
 
 </html>

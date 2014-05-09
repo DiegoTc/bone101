@@ -9,7 +9,8 @@ and open the template in the editor.
         <title>BeagleBoard.org</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+</script>
         <style>
             body {
                 position: absolute;
@@ -142,13 +143,24 @@ and open the template in the editor.
     </body>
 
     <script>
-        $('.pre').click(function() {
-
+        $(document).ready(function(){
+            $('.back').click(function() {
+                window.location = "BLINKING_2.html";
+            });
         });
-
-        $('.back').click(function() {
-            window.location = "BLINKING_2.html";
+        
+        $(document).keyup(function(e){
+            if (event.which == "27"){
+                window.location = "../../GSOC/template.html";
+            }
+            else if(event.which == "37"){
+                    
+            }
+            else if (event.which == "39"){
+                window.location = "BLINKING_2.html";
+            }
         });
+        
     </script>
 
 </html>
