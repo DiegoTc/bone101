@@ -49,13 +49,13 @@ ul.square {
 .top {
 	background-color: #de7224;
 	height: 75px;
-	text-align: center;
+	text-align: left;
 }
 .top-header {
 	width: 950px;
 	padding-left:50px;
 	padding-top:10px;
-	text-align:left;
+	/* text-align:left; */
 	margin: 0 auto; 
 }
 .social{
