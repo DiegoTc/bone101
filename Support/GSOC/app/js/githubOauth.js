@@ -23,10 +23,84 @@ var start = function(){
                 $("a#create").append("Create");
                 $("a#login").empty();
                 $("a#login").attr("href", "#");
+                
+                if($.cookie('githubToken')!=null){
+            var gisturl = "https://api.github.com/gists";
+            var gistrequest = {
+                type: "GET",
+                url: gisturl,
+                success: gistsuccess
+            };
+            var token = $.cookie('githubToken');
+            gistrequest.headers = {
+                "Authorization": 'token ' + token
+            };
+            console.log('request: ' + JSON.stringify(gistrequest));
+            $.ajax(gistrequest).fail(gistfail);
+        }
+                
             })
         });
+        
+        
     //};
 };
+
+function onsuccess(response){
+    var token =response.id;
+    $.cookie('gistSaveId', token,{ expires: 1, path: '/' });
+}
+
+function createJson(){
+    Jfile = {
+        "description": "BONELIST",
+        "public": true,
+        "files": {
+            "autosave.html": {
+                "content": "newid"
+            },
+            "save.html": {
+                "content": "newid"
+            }
+        }
+    };
+    console.log(JSON.stringify(Jfile));
+    return Jfile;
+}
+
+function gistsuccess(response){
+     console.log('success: ' + JSON.stringify(response));
+     files = createJson();
+     
+     var newdata = response;
+     var available = _.find(newdata, { 'description': "BONELIST" });
+     if(available == undefined){
+        var url = "https://api.github.com/gists";
+        var mypost = {
+            type: "POST",
+            url: url,
+            data: JSON.stringify(files), 
+            success: onsuccess,
+            dataType: "json"
+        };
+        var token = $.cookie('githubToken');
+        mypost.headers = {
+            "Authorization": 'token ' + token
+        };
+        console.log("Doing post: " + JSON.stringify(mypost));
+        $.ajax(mypost).fail(gistfail);
+     }
+     else{
+         var token=available.id;
+         $.cookie('gistSaveId', token,{ expires: 1, path: '/' });
+     }
+
+}
+
+function gistfail(response) {
+    $.removeCookie('gistId', {path: '/'});
+    alert("Error creating the tutorial");
+}
 
 var logout = function(){
      $.removeCookie('githubUser', user,{ expires: 1, path: '/' });
