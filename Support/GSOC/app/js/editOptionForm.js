@@ -3,11 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD
 var jfileAutoSave = {};
-=======
-
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
 function deleteUi(list, listActive, content, preview, code) {
     sizeList = list.find("li").size();
     if (sizeList > 1) {
@@ -273,7 +269,6 @@ var create_Json = function create_Json(list, content, code, preview, ob, flag) {
 
             }
         }
-<<<<<<< HEAD
         var value = "";
         for (i = 0; i < listLi.length; i++) {
             value = value + listLi[i].children[0].children[0].innerHTML + "\n";
@@ -281,8 +276,6 @@ var create_Json = function create_Json(list, content, code, preview, ob, flag) {
         obj = {"content": value};
         name = "CardList.html";
         Jfile["files"][name] = obj;
-=======
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
         console.log(JSON.stringify(Jfile));
         return Jfile;
     } else {
@@ -718,11 +711,7 @@ function onfail(response) {
 };
 
 function createtutorial(list, content, code, preview, ob) {
-<<<<<<< HEAD
     var tutorialId = getParameterByName('gistid');
-=======
-    var tutorialId = $.cookie('gistidEdit');
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
 
     if (tutorialId == undefined) {
         files = create_JsonSave(list, content, code, preview, ob, true);
@@ -762,7 +751,6 @@ function createtutorial(list, content, code, preview, ob) {
 };
 
 function autoSaveTutorial(list, content, code, preview, ob) {
-<<<<<<< HEAD
     var tutorialId = getParameterByName('gistid');
     if (tutorialId == undefined) {
         files = create_Json(list, content, code, preview, ob, true);
@@ -804,43 +792,6 @@ function autoSaveTutorial(list, content, code, preview, ob) {
             console.log('Doing patch: ' + JSON.stringify(gistupdate));
             $.ajax(gistupdate).fail(onfail);
         }
-=======
-    var tutorialId = $.cookie('gistidEdit');
-    if (tutorialId == undefined) {
-        files = create_Json(list, content, code, preview, ob, true);
-        var url = "https://api.github.com/gists";
-        var mypost = {
-            type: "POST",
-            url: url,
-            data: JSON.stringify(files), //JSON.stringify(Jfile),
-            success: onsuccessAuto,
-            dataType: "json"
-        };
-        var token = $.cookie('githubToken');
-        mypost.headers = {
-            "Authorization": 'token ' + token
-        };
-        console.log("Doing post: " + JSON.stringify(mypost));
-        $.ajax(mypost).fail(onfail);
-    }
-    else {
-        files = create_Json(list, content, code, preview, ob, false);
-        var gisturl = "https://api.github.com/gists/" + tutorialId;
-        var gistupdate = {
-            type: "PATCH",
-            url: gisturl,
-            data: JSON.stringify(files), //JSON.stringify(Jfile),
-            success: onsuccessAuto,
-            dataType: "json"
-        };
-        var token = $.cookie('githubToken');
-        gistupdate.headers = {
-            "Authorization": 'token ' + token
-        };
-
-        console.log('Doing patch: ' + JSON.stringify(gistupdate));
-        $.ajax(gistupdate).fail(onfail);
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
     }
 };
 
@@ -868,11 +819,7 @@ function checktutorialFork(){
         gistrequest.headers = {
             "Authorization": 'token ' + token
         };
-<<<<<<< HEAD
         console.log('request for checkforFork: ' + JSON.stringify(gistrequest));
-=======
-        console.log('request for checkforEdit: ' + JSON.stringify(gistrequest));
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
         $.ajax(gistrequest).fail(forkFail);
     }
 }
@@ -959,11 +906,7 @@ function checktutorialEdit(){
             success: checkEditTutorial,
             dataType: "json"
         };
-<<<<<<< HEAD
         console.log('request for checktutorialEdit: ' + JSON.stringify(gistrequest));
-=======
-        console.log('request for checkforEdit: ' + JSON.stringify(gistrequest));
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
         $.ajax(gistrequest).fail(failedit);
     }
 }
@@ -1035,7 +978,6 @@ function edittutorial(response){
     var typeCard=[];
     $.cookie('gistidEdit', id, {expires: 1, path: '/'});
     preview.value=response.files["CARD_Preview.html"].content;
-<<<<<<< HEAD
     var objfile={};
     jfileAutoSave={description: response.description};
     jfileAutoSave["public"] = response.public;
@@ -1048,12 +990,6 @@ function edittutorial(response){
             objfile={"content": response.files[i].content};
             name=response.files[i].filename;
             jfileAutoSave["files"][name]=objfile;
-=======
-    for (var i in response.files){
-    //for(i=1;i<response.files.length;i++){
-        if(i!="CardList.html" || i == "CARD_Preview.html" ){
-            
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
             if(response.files[i].filename.indexOf(".html")>0){
                 content.push(response.files[i].content);
                 typeCard.push("H");
@@ -1080,17 +1016,11 @@ function edittutorial(response){
             }
         }
     }
-<<<<<<< HEAD
     objfile={"content": response.files["CardList.html"].content};
     jfileAutoSave["files"]["CardList.html"]=objfile;
     var listofCard = response.files["CardList.html"].content.replace(/\n/g, ",").slice(0,-1);
     var arrListofCards = listofCard.split(",");
     arrListofCards.shift();
-=======
-    var listofCard = response.files["CardList.html"].content.replace(/\n/g, ",").slice(0,-1);
-    var arrListofCards = listofCard.split(",");
-    arrListofCards.shift(); 
->>>>>>> d22e9a7c60fe35bcaf7182f7398b593ed175440b
     createCards(arrListofCards,typeCard);
     
 };
