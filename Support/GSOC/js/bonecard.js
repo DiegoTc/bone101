@@ -18,12 +18,12 @@ function init() {
     }
     
     if(location.hash) {
-        console.log(location.hash);
+        //console.log(location.hash);
         var gistid = location.hash.substring(1);
         $(".bonecard-list").each(function(index) {
             var list = $(this);
-            console.log("Replacing gistid " + list.attr("gistid") +
-                        "with " + gistid);
+            //console.log("Replacing gistid " + list.attr("gistid") +
+                   //     "with " + gistid);
             list.attr("gistid", gistid);
         });
     }
@@ -43,7 +43,7 @@ function init() {
                 success: gistsuccess,
                 dataType: "json"
             };
-            console.log('request: ' + JSON.stringify(gistrequest));
+            //console.log('request: ' + JSON.stringify(gistrequest));
             $.ajax(gistrequest).fail(gistfail);
         }
 
@@ -108,7 +108,8 @@ function init() {
                 if(cardNames[i] != "CARD_Preview.html"){
                     if(cardNames[i].indexOf(".js") > 0){
                         var editorS="editor"+i;
-                        list[i].innerHTML='<div class="bonecard"><div class="editor" id='+editorS+'></div></div>';
+                        var editorB="button"+i;
+                        list[i].innerHTML='<div class="bonecard"><button type="button" id=' + editorB + ' class="btn btn-primary">Run</button><div class="editor" id='+editorS+'></div></div>';
                         var editor = ace.edit(editorS);
                         editor.setTheme("ace/theme/monokai");
                         editor.getSession().setMode("ace/mode/javascript");
@@ -120,6 +121,7 @@ function init() {
                         var editor = ace.edit(editorS);
                         editor.setTheme("ace/theme/monokai");
                         editor.getSession().setMode("ace/mode/python");
+                        editor.setReadOnly(true);
                         editor.getSession().setValue(objFiles[cardNames[i]].content);
                     }
                     else if(cardNames[i].indexOf(".rb") > 0){
@@ -128,6 +130,7 @@ function init() {
                         var editor = ace.edit(editorS);
                         editor.setTheme("ace/theme/monokai");
                         editor.getSession().setMode("ace/mode/ruby");
+                        editor.setReadOnly(true);
                         editor.getSession().setValue(objFiles[cardNames[i]].content);
                     }
                     else if(cardNames[i].indexOf(".java") > 0){
@@ -136,6 +139,7 @@ function init() {
                         var editor = ace.edit(editorS);
                         editor.setTheme("ace/theme/monokai");
                         editor.getSession().setMode("ace/mode/java");
+                        editor.setReadOnly(true);
                         editor.getSession().setValue(objFiles[cardNames[i]].content);
                     }
                     else{
@@ -152,7 +156,7 @@ function init() {
         }
         
         function gistsuccess(response) {
-            console.log('success: ' + JSON.stringify(response));
+            //console.log('success: ' + JSON.stringify(response));
             obj = response.files;
             var objFiles = getFileCards(obj);
             var cardNames = getFileCardsNames(obj);

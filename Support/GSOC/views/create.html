@@ -286,8 +286,15 @@ and open the template in the editor.
                         <li><a href="#about">About</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li id="nav-login-btn" class=""><a id="user"><i class="icon-login"></i></a></li>
-                        <li id="nav-login-btn" class=""><a id="login" href="#"><i class="icon-login"></i>Login</a></li>
+                        <li><a id="create"><i class="icon-login"></i></a></li>
+                        <li  id="dropName" class="dropdown">
+                            <a id="user" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-login"></i>
+                            </a>
+                            <ul id="dropNameU" class="dropdown-menu" role="menu">
+                            </ul>
+                        </li>
+                        <li><a id="login" href="#"><i class="icon-login"></i>Login</a></li>
                     </ul>
                     <div class="social">
                         <span style="padding-left:8px"><a href="http://facebook.com/beagleboard" name="header_facebook_icon"><img src="../images/icon_facebook.png" width="27" height="28" alt="facebook" border="0"/></a></span>
@@ -312,20 +319,6 @@ and open the template in the editor.
                             <input type="text" class="edit" style="display:none"/>
                         </a>
                     </li>
-                    <!--<li id="HTML_0">
-                            <a href="#tab_html" data-toggle="pill">
-                            <span  class="display edit_text">Card 2</span>
-                            <input type="text" class="edit" style="display:none"/>
-                        </a>
-                    </li>
-                    
-                    <li id="CODE_0">
-                        <a href="#tab_Code" data-toggle="pill">
-                            <span class="display edit_text">Card 3</span>
-                            <input type="text" class="edit" style="display:none"/>
-                        </a>
-                    </li>
-                    -->
                 </ul>
             </div>
              <div class="col-md-9">
@@ -337,7 +330,7 @@ and open the template in the editor.
                     </div>    
                     <div class="tab-pane bonecard" id="tab_html">
                         <div class="form-group">
-                            <div class="summernote"></div>
+                           <div class="summernote"></div>
                         </div>
                     </div>        
                    
@@ -393,6 +386,16 @@ and open the template in the editor.
                 return size;
             };
             var flag=false;
+            
+            $(document).on('click','a#profile',function(event){
+                $(location).attr('href', "profile.html");
+            });
+    
+            $(document).on('click','a#logout',function(event){
+                logout();
+                $(location).attr('href', "index.html");
+            });
+            
             $(document).ready(function() {
                  
                 $('.selectpicker').selectpicker();
@@ -401,6 +404,9 @@ and open the template in the editor.
                 var user = $.cookie('githubUser');
                 if (token != null) {
                     $('a#user').append(user);
+                    $('a#user').append('<span class="caret"></span>');
+                    $('ul#dropNameU').append('<li><a id="profile" href="#">Profile</a></li>');
+                    $('ul#dropNameU').append('<li><a id="logout" href="#"><i class="icon-login"></i>Logout</a></li>');
                     $("a#login").empty();
                     $("a#login").attr("href", "#");
                    
@@ -479,8 +485,10 @@ and open the template in the editor.
                     list = $("#myTab");
                     listActive = $("#myTab .active");
                     currentWindow = $("a",listActive).attr('href');
+                   
                     addNewElement(list,listActive,content,code,preview,currentWindow,"HTML");
                     autoSaveTutorial(list,content,code,preview,ob);
+                   
                 });
                
                $("#bt_Code").click(function(e){
@@ -515,7 +523,7 @@ and open the template in the editor.
                             '</div>');
                     }else{
                         list=$("#myTab");
-                        deleteUi(list,listActive,content,preview);
+                        deleteUi(list,listActive,content,preview,code);
                     }
                     
                     
@@ -527,6 +535,13 @@ and open the template in the editor.
                    changeElementothers( list,listActive,content,code,preview);
                    createtutorial(list,content,code,preview,ob); 
                });
+                
+                $(document).on('keyup','.edit_text',function(event){
+                     if(event.keyCode == 13) { 
+                         event.preventDefault(event);
+                        $(this).hide().siblings(".display").show().text($(this).val());
+                     }
+                });
                 
                $(document).on('dblclick','.edit_text',function(event){
                     event.preventDefault(event);
@@ -554,7 +569,7 @@ and open the template in the editor.
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['height', ['height']],
-                        ['misc', ['undo','redo','codeview']],
+                        ['misc', ['undo','redo']],
                     ]
                    
                 });
