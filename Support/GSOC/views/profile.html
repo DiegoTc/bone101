@@ -172,7 +172,7 @@ and open the template in the editor.
              border:2px solid black
          }
          
-         a.boxclose{
+         div.boxclose{
             float:right;
             margin-top:-20px;
             margin-right:-20px;
@@ -192,6 +192,13 @@ and open the template in the editor.
             content: "×";
         }
         
+        .text-center {
+            text-align: center;
+            position: fixed;
+            bottom: -20px;
+            width: 100%;
+            margin-left: -20%;
+        }
         
         </style>
         
@@ -240,7 +247,7 @@ and open the template in the editor.
         
                 <ul class="nav nav-pills nav-stacked example" id="myTab" style="height: 200px; overflow: auto">
                     <li id="cZero" class="active">
-                        <a href="#tab_publish" data-toggle="pill">Publish</a>
+                        <a href="#tab_publish" data-toggle="pill">Published</a>
                     </li>
                     <li id="cOne" >
                         <a href="#tab_draft" data-toggle="pill">Drafts</a>
@@ -265,7 +272,9 @@ and open the template in the editor.
             
             
             $(document).on('click','a#profile',function(event){
-                alert("Hola document");
+                var id = $.cookie("gistSaveId");
+                var link="profile.html?profileId="+id;
+                $(location).attr('href', link);
             });
     
             $(document).on('click','a#logout',function(event){
@@ -315,10 +324,14 @@ and open the template in the editor.
                     $('ul#dropNameU').append('<li><a id="logout" href="#"><i class="icon-login"></i>Logout</a></li>');
                     $("a#login").empty();
                     $("a#login").attr("href", "#");
+                    $("a#create").attr("href", "create.html");
+                    $("a#create").append("Create");
                    
                 }
                 else {
-                    $(location).attr('href', "index.html");
+                    var id = getParameterByName("profileId");
+                    var link="publicProfile.html?profileId="+id;
+                    $(location).attr('href', link);
                 }
                 
                 
