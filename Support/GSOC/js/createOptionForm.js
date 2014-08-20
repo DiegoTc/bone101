@@ -22,8 +22,8 @@ function deleteUi(list, listActive, content, preview, code) {
         $('.summernote_Small').code(preview.value);
         $(".note-editor").css({"margin-top": "-14%"});
         $("#myTab").scrollTop($("#myTab")[0].scrollHeight);
-        $('#myTab a:last').tab('show') 
-        //$('#myTab a:first').tab('show');
+        //$('#myTab a:last').tab('show') ;
+        $('#myTab a:first').tab('show');
 
     }
 };
