@@ -1060,7 +1060,7 @@ function edittutorial(response){
     objfile={"content": response.files["CARD_Preview.html"].content};
     jfileAutoSave["files"][name]=objfile;
     for (var i in response.files){
-        if(i!="CardList.html" || i == "CARD_Preview.html" ){
+        if(i!="CardList.html" && i != "CARD_Preview.html" ){
             objfile={"content": response.files[i].content};
             name=response.files[i].filename;
             jfileAutoSave["files"][name]=objfile;
