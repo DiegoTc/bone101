@@ -22,8 +22,14 @@ function deleteUi(list, listActive, content, preview, code) {
         $('.summernote_Small').code(preview.value);
         $(".note-editor").css({"margin-top": "-14%"});
         $("#myTab").scrollTop($("#myTab")[0].scrollHeight);
-        //$('#myTab a:last').tab('show') 
-        $('#myTab a:first').tab('show');
+        if($('#myTab a:last').attr("href")== "#tab_html"){
+            $(".note-editor").css({"margin-top": "-6%"});
+        }
+        list = $("#myTab");
+        newid=$('#myTab a:last').parent().attr("id");
+        updateEditor(list,newid,content,code,preview);
+       $('#myTab a:last').tab('show') ;
+        //$('#myTab a:first').tab('show');
 
     }
 };
